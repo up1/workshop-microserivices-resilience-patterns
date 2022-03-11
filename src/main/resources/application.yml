@@ -1,0 +1,14 @@
+resilience4j.timelimiter:
+  instances:
+    paymentService:
+      cancelRunningFuture: true
+      timeoutDuration: 500ms
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
