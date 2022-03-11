@@ -24,13 +24,4 @@ public class OrderController {
         return paymentService.pay();
     }
 
-    @GetMapping("/order")
-    @TimeLimiter(name = "slow", fallbackMethod = "onError")
-    public CompletableFuture<String> createOrder()
-    {
-        return CompletableFuture.supplyAsync(paymentService::slow);
-    }
-    public ResponseEntity<String> onError(RequestNotPermitted exception) throws InterruptedException {
-        return new ResponseEntity<String>(" orderService is full", HttpStatus.TOO_MANY_REQUESTS);
-    }
 }
