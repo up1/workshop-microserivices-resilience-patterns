@@ -18,6 +18,7 @@ resilience4j.retry:
       waitDuration: 1s
       retryExceptions:
         - com.example.demo.resilience.retry.PaymentException
+        - java.util.concurrent.TimeoutException
   instances:
     paymentService:
       baseConfig: default
