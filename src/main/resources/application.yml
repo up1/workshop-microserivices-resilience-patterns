@@ -1,27 +1,9 @@
-resilience4j.thread-pool-bulkhead:
+resilience4j.ratelimiter:
   instances:
     paymentService:
-      maxThreadPoolSize: 1
-      coreThreadPoolSize: 1
-      queueCapacity: 1
-
-resilience4j.timelimiter:
-  instances:
-    paymentService:
-      cancelRunningFuture: false
+      limitForPeriod: 5
+      limitRefreshPeriod: 5s
       timeoutDuration: 1s
-
-resilience4j.retry:
-  configs:
-    default:
-      maxAttempts: 3
-      waitDuration: 1s
-      retryExceptions:
-        - com.example.demo.resilience.retry.PaymentException
-        - java.util.concurrent.TimeoutException
-  instances:
-    paymentService:
-      baseConfig: default
 
 management:
   endpoints:
