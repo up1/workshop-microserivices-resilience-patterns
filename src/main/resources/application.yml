@@ -1,15 +1,35 @@
-resilience4j.ratelimiter:
+management.endpoints.web.exposure.include: '*'
+management.endpoint.health.show-details: always
+management.health.circuitbreakers.enabled: true
+
+server:
+  tomcat:
+    threads:
+      max: 2
+
+resilience4j.bulkhead:
   instances:
     paymentService:
-      limitForPeriod: 5
-      limitRefreshPeriod: 5s
-      timeoutDuration: 1s
+      maxConcurrentCalls: 2
+      maxWaitDuration: 10s
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
+resilience4j.thread-pool-bulkhead:
+  instances:
+    paymentService:
+      maxThreadPoolSize: 1
+      coreThreadPoolSize: 1
+      queueCapacity: 1
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 5
+      permittedNumberOfCallsInHalfOpenState: 1
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 60
+      recordExceptions:
+        - com.example.demo.resilience.demo.PaymentException
+  instances:
+    paymentService:
+      baseConfig: default
