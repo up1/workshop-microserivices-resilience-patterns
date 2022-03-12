@@ -30,7 +30,8 @@ public class PaymentService {
 
     private CompletableFuture<String> processFromLocalCache(TimeoutException exception) {
         logger.info("Process from local ...");
-        return CompletableFuture.completedFuture("Recovered specific TimeoutException: " + exception.toString());
+        return CompletableFuture.completedFuture(
+                "Recovered specific TimeoutException: " + exception.toString());
     }
 
 }

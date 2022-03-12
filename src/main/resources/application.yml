@@ -1,8 +1,11 @@
 resilience4j.timelimiter:
   instances:
+    working-with-sync:
+      cancelRunningFuture: false
+      timeoutDuration: 1s
     paymentService:
       cancelRunningFuture: true
-      timeoutDuration: 500ms
+      timeoutDuration: 1s
 
 management:
   endpoints:
